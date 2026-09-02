@@ -2867,7 +2867,7 @@ namespace UAssetAPI
                         writer.Write(this.Imports[i].ClassName);
                         writer.Write(this.Imports[i].OuterIndex.Index);
                         writer.Write(this.Imports[i].ObjectName);
-                        if (writer.Asset.ObjectVersion >= ObjectVersion.VER_UE4_NON_OUTER_PACKAGE_IMPORT)
+                        if (Import.ShouldSerializePackageName(writer.Asset))
                             writer.Write(this.Imports[i].PackageName);
                         if (writer.Asset.ObjectVersionUE5 >= ObjectVersionUE5.OPTIONAL_RESOURCES) writer.WriteBooleanInt(this.Imports[i].bImportOptional);
                     }
