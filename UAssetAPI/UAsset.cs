@@ -744,6 +744,7 @@ namespace UAssetAPI
         public void SetEngineVersion(EngineVersion newVersion)
         {
             if (newVersion == EngineVersion.UNKNOWN) return;
+            SpecifiedEngineVersion = newVersion;
             if (!Enum.TryParse(Enum.GetName(typeof(EngineVersion), newVersion), out UE4VersionToObjectVersion bridgeVer)) throw new InvalidOperationException("Invalid engine version specified");
             ObjectVersion = (ObjectVersion)(int)bridgeVer;
 
@@ -751,6 +752,12 @@ namespace UAssetAPI
 
             CustomVersionContainer = GetDefaultCustomVersionContainer(newVersion);
         }
+
+        /// <summary>
+        /// The exact engine version explicitly supplied by the caller, before it is
+        /// reduced to object and custom versions that may be shared by multiple releases.
+        /// </summary>
+        internal EngineVersion SpecifiedEngineVersion { get; private set; } = EngineVersion.UNKNOWN;
 
         public static EngineVersion GetEngineVersion(ObjectVersion objectVersion, ObjectVersionUE5 objectVersionUE5, List<CustomVersion> customVersionContainer)
         {
