@@ -1339,6 +1339,7 @@ namespace UAssetAPI
 
                 // initial read to just fetch the FolderName
                 UAsset otherAsset = new UAsset(this.ObjectVersion, this.ObjectVersionUE5, this.CustomVersionContainer.Select(item => (CustomVersion)item.Clone()).ToList(), this.Mappings);
+                otherAsset.SpecifiedEngineVersion = SpecifiedEngineVersion;
                 AssetBinaryReader otherReader = otherAsset.PathToReader(pathOnDisk);
                 otherAsset.CustomSerializationFlags = CustomSerializationFlags.SkipLoadingExports | CustomSerializationFlags.SkipPreloadDependencyLoading;
                 otherAsset.FilePath = pathOnDisk;
