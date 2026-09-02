@@ -45,8 +45,7 @@ namespace UAssetAPI
             OuterIndex = new FPackageIndex(reader.ReadInt32());
             ObjectName = reader.ReadFName();
 
-            if (reader.Asset.ObjectVersion >= ObjectVersion.VER_UE4_NON_OUTER_PACKAGE_IMPORT
-                && !reader.Asset.IsFilterEditorOnly)
+            if (reader.Asset.ObjectVersion >= ObjectVersion.VER_UE4_NON_OUTER_PACKAGE_IMPORT)
                 PackageName = reader.ReadFName();
 
             if (reader.Asset.ObjectVersionUE5 >= ObjectVersionUE5.OPTIONAL_RESOURCES) bImportOptional = reader.ReadInt32() == 1;
