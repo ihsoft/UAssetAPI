@@ -807,7 +807,22 @@ namespace UAssetAPI
         /// The exact engine version explicitly supplied by the caller, before it is
         /// reduced to object and custom versions that may be shared by multiple releases.
         /// </summary>
+        [JsonIgnore]
         internal EngineVersion SpecifiedEngineVersion { get; private set; } = EngineVersion.UNKNOWN;
+
+        /// <summary>
+        /// Supplies the exact serialization engine hint after JSON import without
+        /// replacing the asset's original object versions or custom version container.
+        /// UNKNOWN leaves the current runtime hint unchanged. This does not convert
+        /// the asset to another engine version.
+        /// </summary>
+        public void SetSerializationEngineVersion(EngineVersion engineVersion)
+        {
+            if (!Enum.IsDefined(typeof(EngineVersion), engineVersion))
+                throw new ArgumentOutOfRangeException(nameof(engineVersion));
+            if (engineVersion != EngineVersion.UNKNOWN)
+                SpecifiedEngineVersion = engineVersion;
+        }
 
         public static EngineVersion GetEngineVersion(ObjectVersion objectVersion, ObjectVersionUE5 objectVersionUE5, List<CustomVersion> customVersionContainer)
         {
